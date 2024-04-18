@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller('AuthController')->namespace('Admin')->name('admin.')->prefix('/admin')->group(function () {
+    Route::post('/login', 'login')->name('login');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/create-User', 'createUser')->name('create-User');
+        Route::get('/{id}', 'getUserById')->name('get-User-by-id');
+    });
+
 });
+
